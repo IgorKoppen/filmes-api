@@ -1,4 +1,4 @@
-package com.github.igorkoppen.filmes.filmes_api;
+package com.github.igorkoppen.filmes.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
