@@ -1,6 +1,7 @@
 package com.github.igorkoppen.filmes.api.model;
 
 
+import com.github.igorkoppen.filmes.api.dto.FilmeDTO;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -35,6 +36,15 @@ public class Filme {
 
     public Filme() {
     }
+
+    public Filme(FilmeDTO filme) {
+        this.id = filme.getId();
+        this.titulo = filme.getTitulo();
+        this.ano = filme.getAno();
+        this.reviews = filme.getReviews().stream().map(Review::new).toList();
+        this.genero = new Genero(filme.getGenero());
+    }
+
 
     public Long getId() {
         return id;

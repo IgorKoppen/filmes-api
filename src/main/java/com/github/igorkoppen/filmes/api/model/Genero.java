@@ -1,6 +1,7 @@
 package com.github.igorkoppen.filmes.api.model;
 
 
+import com.github.igorkoppen.filmes.api.dto.GeneroDTO;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -25,6 +26,12 @@ public class Genero {
     }
 
     public Genero() {
+    }
+
+    public Genero(GeneroDTO genero) {
+        this.id = genero.getId();
+        this.nome = genero.getNome();
+        this.filmes = genero.getFilmes().stream().map(Filme::new).toList();
     }
 
     public Long getId() {

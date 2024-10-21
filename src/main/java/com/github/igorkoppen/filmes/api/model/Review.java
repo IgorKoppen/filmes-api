@@ -1,5 +1,6 @@
 package com.github.igorkoppen.filmes.api.model;
 
+import com.github.igorkoppen.filmes.api.dto.ReviewDTO;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -30,6 +31,14 @@ public class Review {
     }
 
     public Review() {
+    }
+
+    public Review(ReviewDTO reviewDTO) {
+
+        this.id = reviewDTO.getId();
+        this.texto = reviewDTO.getTexto();
+        this.user = new User(reviewDTO.getUser());
+        this.filme = new Filme(reviewDTO.getFilme());
     }
 
     public Long getId() {
