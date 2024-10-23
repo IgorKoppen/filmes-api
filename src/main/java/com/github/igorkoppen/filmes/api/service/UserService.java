@@ -1,6 +1,7 @@
 package com.github.igorkoppen.filmes.api.service;
 
 import com.github.igorkoppen.filmes.api.dto.UserDTO;
+import com.github.igorkoppen.filmes.api.dto.UserWithReviewsDTO;
 import com.github.igorkoppen.filmes.api.exception.DatabaseException;
 import com.github.igorkoppen.filmes.api.exception.ResourceNotFoundException;
 import com.github.igorkoppen.filmes.api.model.User;
@@ -26,14 +27,14 @@ public class UserService {
         return toDTO(user);
     }
     @Transactional(readOnly = true)
-    public List<UserDTO> findAll(){
+    public List<UserWithReviewsDTO> findAll(){
         List<User> users = userRepository.findAll();
-        return users.stream().map(this::toDTO).toList();
+        return users.stream().map(this::toUserWithReviesDTO).toList();
     }
     @Transactional(readOnly = true)
-    public UserDTO findById(Long id){
+    public UserWithReviewsDTO findById(Long id){
         User user =  userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not founded with id: " + id));
-        return toDTO(user);
+        return toUserWithReviesDTO(user);
     }
     @Transactional
     public UserDTO update(Long id, UserDTO userDTO){
@@ -64,4 +65,7 @@ public class UserService {
         return new UserDTO(user);
     }
 
+    private UserWithReviewsDTO toUserWithReviesDTO(User user){
+        return new UserWithReviewsDTO(user);
+    }
 }

@@ -64,9 +64,11 @@ public class FilmeService {
         entity.setAno(dto.getAno());
         entity.setTitulo(dto.getTitulo());
         entity.setGenero(new Genero(dto.getGenero()));
-        entity.setReviews(dto.getReviews().stream().map(Review::new).toList());
-
+        if(dto.getReviews() != null) {
+            entity.setReviews(dto.getReviews().stream().map(Review::new).toList());
+        }
     }
+
 
     private FilmeDTO toDTO(Filme filme) {
         return new FilmeDTO(filme);

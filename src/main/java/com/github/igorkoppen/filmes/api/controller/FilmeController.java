@@ -1,9 +1,7 @@
 package com.github.igorkoppen.filmes.api.controller;
 
-
-import com.github.igorkoppen.filmes.api.dto.UserDTO;
-import com.github.igorkoppen.filmes.api.dto.UserWithReviewsDTO;
-import com.github.igorkoppen.filmes.api.service.UserService;
+import com.github.igorkoppen.filmes.api.dto.FilmeDTO;
+import com.github.igorkoppen.filmes.api.service.FilmeService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,27 +13,27 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/filmes")
+public class FilmeController {
 
     @Autowired
-    private UserService service;
+    private FilmeService service;
 
 
     @GetMapping
-    public ResponseEntity<List<UserWithReviewsDTO>> findAll() {
-        List<UserWithReviewsDTO> dto = service.findAll();
+    public ResponseEntity<List<FilmeDTO>> findAll() {
+        List<FilmeDTO> dto = service.findAll();
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserWithReviewsDTO> findById(@PathVariable Long id) {
-        UserWithReviewsDTO dto = service.findById(id);
+    public ResponseEntity<FilmeDTO> findById(@PathVariable Long id) {
+        FilmeDTO dto = service.findById(id);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> insert(@RequestBody @Valid UserDTO dto) {
+    public ResponseEntity<FilmeDTO> insert(@RequestBody @Valid FilmeDTO dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -47,8 +45,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable @NotNull Long id,
-                                               @RequestBody @Valid UserDTO dto ){
+    public ResponseEntity<FilmeDTO> update(@PathVariable @NotNull Long id,
+                                          @RequestBody @Valid FilmeDTO dto ){
         dto = service.update(id, dto);
         return ResponseEntity.ok(dto);
     }

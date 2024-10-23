@@ -1,25 +1,21 @@
 package com.github.igorkoppen.filmes.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotEmpty;
 
-public class ReviewDTO {
+public class ReviewWithFilmeInfoDTO {
 
     private Long id;
     @NotEmpty(message = "Texto não pode estar vazio.")
     private String texto;
+    @JsonIgnoreProperties({"reviews"})
+    private FilmeDTO user;
 
-
-    private Long userId;
-    private Long filmeId;
-
-
-    public ReviewDTO(Long id, String texto, Long userId, Long filmeId) {
+    public ReviewWithFilmeInfoDTO(Long id, String texto, FilmeDTO user) {
         this.id = id;
         this.texto = texto;
-        this.userId = userId;
-        this.filmeId = filmeId;
+        this.user = user;
     }
-
 
     public Long getId() {
         return id;
@@ -29,11 +25,7 @@ public class ReviewDTO {
         return texto;
     }
 
-    public Long getFilmeId() {
-        return filmeId;
-    }
-
-    public Long getUserId() {
-        return userId;
+    public FilmeDTO getUser() {
+        return user;
     }
 }

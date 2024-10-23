@@ -41,7 +41,6 @@ public class Filme {
         this.id = filme.getId();
         this.titulo = filme.getTitulo();
         this.ano = filme.getAno();
-        this.reviews = filme.getReviews().stream().map(Review::new).toList();
         this.genero = new Genero(filme.getGenero());
     }
 

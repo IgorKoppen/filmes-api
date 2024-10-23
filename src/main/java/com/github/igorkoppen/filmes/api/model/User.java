@@ -2,6 +2,7 @@ package com.github.igorkoppen.filmes.api.model;
 
 
 import com.github.igorkoppen.filmes.api.dto.UserDTO;
+import com.github.igorkoppen.filmes.api.dto.UserNameDTO;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class User {
     private Long id;
     @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
     private String password;
@@ -40,7 +41,11 @@ public class User {
         this.name = userDTO.getName();
         this.email = userDTO.getEmail();
         this.password = userDTO.getPassword();
-        this.reviews = userDTO.getReviews().stream().map(Review::new).toList();
+    }
+
+    public User(UserNameDTO userNameDTO){
+        this.id = userNameDTO.getId();
+        this.name = userNameDTO.getName();
     }
 
     public Long getId() {

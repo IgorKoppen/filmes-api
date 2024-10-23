@@ -1,9 +1,8 @@
 package com.github.igorkoppen.filmes.api.controller;
 
-
-import com.github.igorkoppen.filmes.api.dto.UserDTO;
-import com.github.igorkoppen.filmes.api.dto.UserWithReviewsDTO;
-import com.github.igorkoppen.filmes.api.service.UserService;
+import com.github.igorkoppen.filmes.api.dto.ReviewDTO;
+import com.github.igorkoppen.filmes.api.dto.ReviewsWithUserDTO;
+import com.github.igorkoppen.filmes.api.service.ReviewService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,28 +13,29 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/reviews")
+public class ReviewController {
 
     @Autowired
-    private UserService service;
+    private ReviewService service;
 
 
     @GetMapping
-    public ResponseEntity<List<UserWithReviewsDTO>> findAll() {
-        List<UserWithReviewsDTO> dto = service.findAll();
+    public ResponseEntity<List<ReviewsWithUserDTO>> findAll() {
+        List<ReviewsWithUserDTO> dto = service.findAll();
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserWithReviewsDTO> findById(@PathVariable Long id) {
-        UserWithReviewsDTO dto = service.findById(id);
+    public ResponseEntity<ReviewsWithUserDTO> findById(@PathVariable Long id) {
+        ReviewsWithUserDTO dto = service.findById(id);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> insert(@RequestBody @Valid UserDTO dto) {
+    public ResponseEntity<ReviewDTO> insert(@RequestBody @Valid ReviewDTO dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -47,8 +47,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable @NotNull Long id,
-                                               @RequestBody @Valid UserDTO dto ){
+    public ResponseEntity<ReviewDTO> update(@PathVariable @NotNull Long id,
+                                           @RequestBody @Valid ReviewDTO dto ){
         dto = service.update(id, dto);
         return ResponseEntity.ok(dto);
     }

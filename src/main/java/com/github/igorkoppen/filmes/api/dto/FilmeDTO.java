@@ -1,5 +1,6 @@
 package com.github.igorkoppen.filmes.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.igorkoppen.filmes.api.model.Filme;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -19,11 +20,11 @@ public class FilmeDTO {
     @Positive(message = "ano tem que ser positivo")
     private Integer ano;
 
-    private List<ReviewDTO> reviews;
+    private List<ReviewsWithUserDTO> reviews;
 
     private GeneroDTO genero;
 
-    public FilmeDTO(Long id, String titulo, Integer ano, List<ReviewDTO> reviews, GeneroDTO genero) {
+    public FilmeDTO(Long id, String titulo, Integer ano, List<ReviewsWithUserDTO> reviews, GeneroDTO genero) {
         this.id = id;
         this.titulo = titulo;
         this.ano = ano;
@@ -36,7 +37,7 @@ public class FilmeDTO {
         this.titulo = filme.getTitulo();
         this.ano = filme.getAno();
         if(filme.getReviews() != null){
-            this.reviews =  filme.getReviews().stream().map(ReviewDTO::new).toList();
+            this.reviews =  filme.getReviews().stream().map(ReviewsWithUserDTO::new).toList();
         }else{
             this.reviews = Collections.emptyList();
         }
@@ -56,7 +57,7 @@ public class FilmeDTO {
         return ano;
     }
 
-    public List<ReviewDTO> getReviews() {
+    public List<ReviewsWithUserDTO> getReviews() {
         return reviews;
     }
 

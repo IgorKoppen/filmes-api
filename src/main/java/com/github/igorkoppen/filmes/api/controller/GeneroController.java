@@ -1,9 +1,7 @@
 package com.github.igorkoppen.filmes.api.controller;
 
-
-import com.github.igorkoppen.filmes.api.dto.UserDTO;
-import com.github.igorkoppen.filmes.api.dto.UserWithReviewsDTO;
-import com.github.igorkoppen.filmes.api.service.UserService;
+import com.github.igorkoppen.filmes.api.dto.GeneroDTO;
+import com.github.igorkoppen.filmes.api.service.GeneroService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,27 +13,26 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
-
+@RequestMapping("/generos")
+public class GeneroController {
     @Autowired
-    private UserService service;
+    private GeneroService service;
 
 
     @GetMapping
-    public ResponseEntity<List<UserWithReviewsDTO>> findAll() {
-        List<UserWithReviewsDTO> dto = service.findAll();
+    public ResponseEntity<List<GeneroDTO>> findAll() {
+        List<GeneroDTO> dto = service.findAll();
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserWithReviewsDTO> findById(@PathVariable Long id) {
-        UserWithReviewsDTO dto = service.findById(id);
+    public ResponseEntity<GeneroDTO> findById(@PathVariable Long id) {
+        GeneroDTO dto = service.findById(id);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> insert(@RequestBody @Valid UserDTO dto) {
+    public ResponseEntity<GeneroDTO> insert(@RequestBody @Valid GeneroDTO dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -47,8 +44,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable @NotNull Long id,
-                                               @RequestBody @Valid UserDTO dto ){
+    public ResponseEntity<GeneroDTO> update(@PathVariable @NotNull Long id,
+                                           @RequestBody @Valid GeneroDTO dto ){
         dto = service.update(id, dto);
         return ResponseEntity.ok(dto);
     }

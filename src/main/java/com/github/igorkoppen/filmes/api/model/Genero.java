@@ -31,7 +31,6 @@ public class Genero {
     public Genero(GeneroDTO genero) {
         this.id = genero.getId();
         this.nome = genero.getNome();
-        this.filmes = genero.getFilmes().stream().map(Filme::new).toList();
     }
 
     public Long getId() {

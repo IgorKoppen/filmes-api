@@ -59,8 +59,6 @@ public class GeneroService {
 
     private void copyToEntity(GeneroDTO dto, Genero entity){
         entity.setNome(dto.getNome());
-        entity.setFilmes(dto.getFilmes().stream().map(Filme::new).toList());
-
     }
 
     private GeneroDTO toDTO(Genero genero){
