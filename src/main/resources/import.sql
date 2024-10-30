@@ -2,6 +2,13 @@
 INSERT INTO tb_user (name, email, password) VALUES ('João Silva', 'joao.silva@example.com', 'senha123');
 INSERT INTO tb_user (name, email, password) VALUES ('Maria Oliveira', 'maria.oliveira@example.com', 'senha456');
 
+INSERT INTO tb_role(authority) VALUES ('ROLE_ADMIN');
+INSERT INTO tb_role(authority) VALUES ('ROLE_MEMBER');
+
+INSERT INTO tb_user_role(user_id, role_id) VALUES(1,1);
+INSERT INTO tb_user_role(user_id, role_id) VALUES(1,2);
+INSERT INTO tb_user_role(user_id, role_id) VALUES(2,2)
+
 -- Inserindo gêneros
 INSERT INTO tb_genero (nome) VALUES ('Ação');
 INSERT INTO tb_genero (nome) VALUES ('Comédia');

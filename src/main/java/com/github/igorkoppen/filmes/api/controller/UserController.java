@@ -2,7 +2,7 @@ package com.github.igorkoppen.filmes.api.controller;
 
 
 import com.github.igorkoppen.filmes.api.dto.UserDTO;
-import com.github.igorkoppen.filmes.api.dto.UserWithReviewsDTO;
+import com.github.igorkoppen.filmes.api.dto.UserInsertDTO;
 import com.github.igorkoppen.filmes.api.service.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -23,27 +23,27 @@ public class UserController {
 
 
     @GetMapping
-    public ResponseEntity<List<UserWithReviewsDTO>> findAll() {
-        List<UserWithReviewsDTO> dto = service.findAll();
+    public ResponseEntity<List<UserDTO>> findAll() {
+        List<UserDTO> dto = service.findAll();
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserWithReviewsDTO> findById(@PathVariable Long id) {
-        UserWithReviewsDTO dto = service.findById(id);
+    public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
+        UserDTO dto = service.findById(id);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> insert(@RequestBody @Valid UserDTO dto) {
-        dto = service.insert(dto);
+    public ResponseEntity<UserDTO> insert(@RequestBody @Valid UserInsertDTO dto) {
+        UserDTO dtouser = service.insert(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(dto.getId())
+                .buildAndExpand(dtouser.getId())
                 .toUri();
 
-        return ResponseEntity.created(uri).body(dto);
+        return ResponseEntity.created(uri).body(dtouser);
     }
 
     @PutMapping("/{id}")

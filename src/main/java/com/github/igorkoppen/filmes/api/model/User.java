@@ -5,8 +5,10 @@ import com.github.igorkoppen.filmes.api.dto.UserDTO;
 import com.github.igorkoppen.filmes.api.dto.UserNameDTO;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_user")
@@ -23,14 +25,19 @@ public class User {
     private String password;
     @OneToMany(mappedBy = "user")
     private List<Review> reviews;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "tb_user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
-
-    public User(Long id, String name, String email, String password, List<Review> reviews) {
+    public User(Long id, String name, String email, String password, List<Review> reviews, Set<Role> roles) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.reviews = reviews;
+        this.roles = roles;
     }
 
     public User() {
@@ -86,6 +93,14 @@ public class User {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override

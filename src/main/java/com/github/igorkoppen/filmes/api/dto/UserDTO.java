@@ -1,11 +1,13 @@
 package com.github.igorkoppen.filmes.api.dto;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.igorkoppen.filmes.api.model.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class UserDTO {
@@ -18,23 +20,23 @@ public class UserDTO {
     @Email(message = "Formato de email inválido!")
     private String email;
     @NotEmpty(message = "Nome não pode estar vazio.")
-    @Size(min = 6, message = "Mínimo de 6 digitos para a senha")
-    private String password;
 
-    public UserDTO(Long id, String name, String email, String password) {
+
+    private Set<RoleDTO> roles = new HashSet<>();
+
+    public UserDTO(Long id, String name, String email, Set<RoleDTO> roles) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.password = password;
+        this.roles = roles;
     }
 
     public UserDTO(User user) {
         this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
-        this.password = user.getPassword();
+        user.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
     }
-
     public Long getId() {
         return id;
     }
@@ -47,8 +49,8 @@ public class UserDTO {
         return email;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
+    public Set<RoleDTO> getRoles() {
+        return roles;
+    }
 }

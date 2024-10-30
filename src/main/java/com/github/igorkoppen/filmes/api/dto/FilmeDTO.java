@@ -20,11 +20,11 @@ public class FilmeDTO {
     @Positive(message = "ano tem que ser positivo")
     private Integer ano;
 
-    private List<ReviewsWithUserDTO> reviews;
+    private List<ReviewDTO> reviews;
 
     private GeneroDTO genero;
 
-    public FilmeDTO(Long id, String titulo, Integer ano, List<ReviewsWithUserDTO> reviews, GeneroDTO genero) {
+    public FilmeDTO(Long id, String titulo, Integer ano, List<ReviewDTO> reviews, GeneroDTO genero) {
         this.id = id;
         this.titulo = titulo;
         this.ano = ano;
@@ -37,7 +37,7 @@ public class FilmeDTO {
         this.titulo = filme.getTitulo();
         this.ano = filme.getAno();
         if(filme.getReviews() != null){
-            this.reviews =  filme.getReviews().stream().map(ReviewsWithUserDTO::new).toList();
+            this.reviews =  filme.getReviews().stream().map(review -> new ReviewDTO(review.getId(),review.getTexto(),review.getUser().getId(), review.getFilme().getId())).toList();
         }else{
             this.reviews = Collections.emptyList();
         }
@@ -57,7 +57,7 @@ public class FilmeDTO {
         return ano;
     }
 
-    public List<ReviewsWithUserDTO> getReviews() {
+    public List<ReviewDTO> getReviews() {
         return reviews;
     }
 

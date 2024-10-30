@@ -1,7 +1,6 @@
 package com.github.igorkoppen.filmes.api.controller;
 
 import com.github.igorkoppen.filmes.api.dto.ReviewDTO;
-import com.github.igorkoppen.filmes.api.dto.ReviewsWithUserDTO;
 import com.github.igorkoppen.filmes.api.service.ReviewService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -23,14 +22,27 @@ public class ReviewController {
 
 
     @GetMapping
-    public ResponseEntity<List<ReviewsWithUserDTO>> findAll() {
-        List<ReviewsWithUserDTO> dto = service.findAll();
+    public ResponseEntity<List<ReviewDTO>> findAll() {
+        List<ReviewDTO> dto = service.findAll();
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReviewsWithUserDTO> findById(@PathVariable Long id) {
-        ReviewsWithUserDTO dto = service.findById(id);
+    public ResponseEntity<ReviewDTO> findById(@PathVariable Long id) {
+        ReviewDTO dto = service.findById(id);
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/filme/{id}")
+    public ResponseEntity<List<ReviewDTO>> findByFilme(@PathVariable Long id){
+        List<ReviewDTO> dto = service.findByFilme(id);
+        return ResponseEntity.ok(dto);
+    }
+
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<ReviewDTO>> findByUser(@PathVariable Long id){
+        List<ReviewDTO> dto = service.findByUser(id);
         return ResponseEntity.ok(dto);
     }
 

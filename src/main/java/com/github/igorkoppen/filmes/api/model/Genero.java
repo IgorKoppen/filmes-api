@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_genero")
@@ -17,9 +18,9 @@ public class Genero {
     @Column(nullable = false)
     private String nome;
     @OneToMany(mappedBy = "genero")
-    private List<Filme> filmes;
+    private Set<Filme> filmes;
 
-    public Genero(Long id, String nome, List<Filme> filmes) {
+    public Genero(Long id, String nome, Set<Filme> filmes) {
         this.id = id;
         this.nome = nome;
         this.filmes = filmes;
@@ -49,11 +50,11 @@ public class Genero {
         this.nome = nome;
     }
 
-    public List<Filme> getFilmes() {
+    public Set<Filme> getFilmes() {
         return filmes;
     }
 
-    public void setFilmes(List<Filme> filmes) {
+    public void setFilmes(Set<Filme> filmes) {
         this.filmes = filmes;
     }
 
