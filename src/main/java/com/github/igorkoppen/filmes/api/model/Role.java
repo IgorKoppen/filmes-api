@@ -2,12 +2,13 @@ package com.github.igorkoppen.filmes.api.model;
 
 import com.github.igorkoppen.filmes.api.dto.RoleDTO;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "tb_role")
-public class Role {
+public class Role implements GrantedAuthority {
 
 
     @Id
@@ -36,6 +37,7 @@ public class Role {
         this.id = id;
     }
 
+    @Override
     public String getAuthority() {
         return authority;
     }
@@ -43,6 +45,8 @@ public class Role {
     public void setAuthority(String authority) {
         this.authority = authority.toUpperCase();
     }
+
+
 
     @Override
     public boolean equals(Object o) {

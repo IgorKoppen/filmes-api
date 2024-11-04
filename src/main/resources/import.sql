@@ -1,6 +1,6 @@
 -- Inserindo usuários
-INSERT INTO tb_user (name, email, password) VALUES ('João Silva', 'joao.silva@example.com', 'senha123');
-INSERT INTO tb_user (name, email, password) VALUES ('Maria Oliveira', 'maria.oliveira@example.com', 'senha456');
+INSERT INTO tb_user (name, email, password) VALUES ('João Silva', 'joao.silva@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBa0xJ0aORUYzfMQCbVBIhZ8tG');
+INSERT INTO tb_user (name, email, password) VALUES ('Maria Oliveira', 'maria.oliveira@example.com', '$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBa0xJ0aORUYzfMQCbVBIhZ8tG');
 
 INSERT INTO tb_role(authority) VALUES ('ROLE_ADMIN');
 INSERT INTO tb_role(authority) VALUES ('ROLE_MEMBER');

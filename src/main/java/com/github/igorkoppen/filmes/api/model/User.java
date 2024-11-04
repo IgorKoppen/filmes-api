@@ -2,17 +2,16 @@ package com.github.igorkoppen.filmes.api.model;
 
 
 import com.github.igorkoppen.filmes.api.dto.UserDTO;
-import com.github.igorkoppen.filmes.api.dto.UserNameDTO;
+import com.github.igorkoppen.filmes.api.dto.UserInsertDTO;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_user")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,13 +46,58 @@ public class User {
         this.id = userDTO.getId();
         this.name = userDTO.getName();
         this.email = userDTO.getEmail();
-        this.password = userDTO.getPassword();
     }
 
-    public User(UserNameDTO userNameDTO){
-        this.id = userNameDTO.getId();
-        this.name = userNameDTO.getName();
+    public User(UserInsertDTO userInsertDTO){
+        this.id = userInsertDTO.getId();
+        this.name = userInsertDTO.getName();
+        this.email = userInsertDTO.getEmail();
+        this.password = userInsertDTO.getPassword();
     }
+
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+    public void addRole(Role role){
+        roles.add(role);
+    }
+
+    public boolean hasRole(String roleName){
+        for(Role role : roles){
+            if(role.getAuthority().equals(roleName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public Long getId() {
         return id;
@@ -115,6 +159,8 @@ public class User {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+
 }
 
 
